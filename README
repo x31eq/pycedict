@@ -1,0 +1,60 @@
+To Install
+----------
+
+Install Python with SQLITE (http://python.org)
+
+Download cedict_1_0_ts_utf-8_mdbg.txt from:
+
+http://www.mdbg.net/chindict/chindict.php?page=cc-cedict
+
+Put it in the same folder as these files.
+
+If you aren't running a Posix shell maybe you need to change
+the encodings...
+
+From the folder with the files in, run python make_db.py
+
+To Use
+------
+
+Open a command prompt and go to the right folder
+
+The lookup.py script does its best to translate a word or standard phrase
+from either English or Chinese.  Examples:
+
+python lookup.py to question closely
+叮问 [ding1 wen4] to question closely/to make a detailed inquiry/to probe/to ask repeatedly
+追问 [zhui1 wen4] to question closely/to investigate in detail/to examine minutely/to get to the heart of the matter
+追询 [zhui1 xun2] to interrogate/to question closely
+
+python lookup.py 叮问
+叮问 [ding1 wen4] to question closely/to make a detailed inquiry/to probe/to ask repeatedly
+
+python lookup.py ding wen
+叮问 [ding1 wen4] to question closely/to make a detailed inquiry/to probe/to ask repeatedly
+
+The translate.py script looks up all words (as far is at can recognize them)
+in a chinese text and gives English translations.  Example:
+
+python translate.py 戈瑞安
+戈 [ge1] spear/surname Ge
+瑞安 [rui4 an1] (N) Rui'an (city in Zhejiang)
+
+You can also give it a file name, and it looks up all the words in that file.
+The file name must have only simple English characters, so that it isn't
+recognized as chinese text.
+
+The longest possible word is chosen at any given point.  That saves you
+looking up a character only to discover it makes no sense on its own, and
+was really the second character in a word.  This sometimes finds overlong
+words.  For example:
+
+translate 中国人民
+中国人 [zhong1 guo2 ren2] Chinese person (中國人)
+民 [min2] the people/nationality/citizen
+
+should have given:
+
+中国 [zhong1 guo2] China/Middle Kingdom (中國)
+人民 [ren2 min2] the people/CL:個|个[ge4]
+
