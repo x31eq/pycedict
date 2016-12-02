@@ -141,7 +141,7 @@ def decodeline(line):
     parsed = re.findall(line_expr, line)
     if not parsed:
         print("Format not recognized")
-        print(line)
+        print(repr(line))
     trad, simp, pinyin, translation = parsed[0]
     return trad, simp, pinyin.lower(), translation
 

@@ -24,10 +24,10 @@ def makedb(dbname, filename, encoding='utf8'):
         )
         """)
 
-    for line in file(filename):
+    for line in open(filename, 'rb'):
+        line = line.decode(encoding)
         if line.strip()=='' or line[0]=='#':
             continue
-        line = line.decode(encoding)
         trad, simp, pinyin, english = cedict.decodeline(line)
         first_simp = simp[:1]
         if trad==simp:
