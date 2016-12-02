@@ -87,7 +87,7 @@ def search_first_character(target):
                 """,
                 (first_character, first_character)).fetchall()
     if not result:
-        raise ValueError, "character not found"
+        raise ValueError("character not found")
     return result
 
 def translate_line(line):
@@ -95,7 +95,7 @@ def translate_line(line):
         if is_chinese(chunk):
             next_word(chunk)
         else:
-            print chunk.encode(output_encoding)
+            print(chunk.encode(output_encoding))
 
 def next_word(target):
     """look recursively for the next longest match"""
@@ -122,11 +122,11 @@ def next_word(target):
 def fail(chinese_text):
     """report that no match was found"""
     for character in chinese_text:
-        print character.encode(output_encoding),
+        encoded_character = character.encode(output_encoding)
         try:
-            print unicodedata.name(character)
+            print(encoded_character, unicodedata.name(character))
         except ValueError:
-            print "not found"
+            print(encoded_character, "not found")
 
 def decode_args():
     return (' '.join(sys.argv[1:])).decode(input_encoding)
@@ -137,8 +137,8 @@ def is_chinese(text):
 def decodeline(line):
     parsed = re.findall(line_expr, line)
     if not parsed:
-        print "Format not recognized"
-        print line
+        print("Format not recognized")
+        print(line)
     trad, simp, pinyin, translation = parsed[0]
     return trad, simp, pinyin.lower(), translation
 
@@ -149,9 +149,9 @@ def print_lines(entries):
         if traditional and traditional != simplified:
             result =  "%s (%s)" % (result, traditional)
         try:
-            print result.encode(output_encoding)
+            print(result.encode(output_encoding))
         except ValueError:
-            print 'failed on', repr(entry)
+            print('failed on', repr(entry))
 
 def clean_punctuation(english):
     return " ".join(re.findall(word_expr, english.lower()))
