@@ -129,7 +129,10 @@ def fail(chinese_text):
             print(encoded_character, "not found")
 
 def decode_args():
-    return (' '.join(sys.argv[1:])).decode(input_encoding)
+    joined = ' '.join(sys.argv[1:])
+    if hasattr(joined, 'decode'):
+        return joined.decode(input_encoding)
+    return joined
 
 def is_chinese(text):
     return text and text[0] > '\x7f'
@@ -149,7 +152,12 @@ def print_lines(entries):
         if traditional and traditional != simplified:
             result =  "%s (%s)" % (result, traditional)
         try:
-            print(result.encode(output_encoding))
+            encoded = result.encode(output_encoding)
+            if type(encoded) == type(result):
+                # python2
+                print(result.encode(output_encoding))
+            else:
+                print(result)
         except ValueError:
             print('failed on', repr(entry))
 
