@@ -11,4 +11,3 @@ else:
         # more liberal matching
         results = cedict.translations_with('', target)
 cedict.print_lines(results)
-
