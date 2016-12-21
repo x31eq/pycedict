@@ -126,7 +126,7 @@ def fail(chinese_text):
         try:
             print(encoded_character, unicodedata.name(character))
         except ValueError:
-            print(encoded_character, "not found")
+            print_error(repr(encoded_character), "not found")
 
 def decode_args():
     joined = ' '.join(sys.argv[1:])
@@ -140,8 +140,8 @@ def is_chinese(text):
 def decodeline(line):
     parsed = re.findall(line_expr, line)
     if not parsed:
-        print("Format not recognized")
-        print(repr(line))
+        print_error("Format not recognized")
+        print_error(repr(line))
     trad, simp, pinyin, translation = parsed[0]
     return trad, simp, pinyin.lower(), translation
 
@@ -159,7 +159,7 @@ def print_lines(entries):
             else:
                 print(result)
         except ValueError:
-            print('failed on', repr(entry))
+            print_error('failed on', repr(entry))
 
 def clean_punctuation(english):
     return " ".join(re.findall(word_expr, english.lower()))
@@ -188,6 +188,10 @@ def get_words(pinyin, english):
 def get_chunks(text):
     """return complete runs of either Chinese or not"""
     return re.findall(chunk_expr, text.strip())
+
+def print_error(*words):
+    sys.stderr.write(' '.join(words))
+    sys.stderr.write('\n')
 
 db = dbapi2.connect(dbname)
 
