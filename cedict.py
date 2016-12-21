@@ -122,11 +122,16 @@ def next_word(target):
 def fail(chinese_text):
     """report that no match was found"""
     for character in chinese_text:
-        encoded_character = character.encode(output_encoding)
         try:
-            print(encoded_character, unicodedata.name(character))
+            character_name = unicodedata.name(character)
         except ValueError:
-            print_error(repr(encoded_character), "not found")
+            print_error(repr(character), "not found")
+        else:
+            encoded_character = character.encode(output_encoding)
+            if type(character) == type(encoded_character):
+                # python2
+                character = encoded_character
+            print('%s %s' % (character, character_name))
 
 def decode_args():
     joined = ' '.join(sys.argv[1:])
