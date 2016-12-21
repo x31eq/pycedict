@@ -87,7 +87,7 @@ def search_first_character(target):
                 """,
                 (first_character, first_character)).fetchall()
     if not result:
-        raise ValueError("character not found")
+        raise ValueError("character not found: %r" % first_character)
     return result
 
 def translate_line(line):
