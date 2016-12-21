@@ -128,7 +128,7 @@ def fail(chinese_text):
             print_error(repr(character), "not found")
         else:
             encoded_character = character.encode(output_encoding)
-            if type(character) == type(encoded_character):
+            if isinstance(encoded_character, str):
                 # python2
                 character = encoded_character
             print('%s %s' % (character, character_name))
@@ -158,13 +158,13 @@ def print_lines(entries):
             result =  "%s (%s)" % (result, traditional)
         try:
             encoded = result.encode(output_encoding)
-            if type(encoded) == type(result):
+            if isinstance(encoded, str):
                 # python2
-                print(result.encode(output_encoding))
+                print(encoded)
             else:
                 print(result)
-        except ValueError:
-            print_error('failed on', repr(entry))
+        except ValueError as err:
+            print_error('failed on', repr(entry), repr(err))
 
 def clean_punctuation(english):
     return " ".join(re.findall(word_expr, english.lower()))
@@ -199,4 +199,3 @@ def print_error(*words):
     sys.stderr.write('\n')
 
 db = dbapi2.connect(dbname)
-
