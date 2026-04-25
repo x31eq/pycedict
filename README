@@ -3,11 +3,13 @@ To Install
 
 Install Python with SQLITE (http://python.org)
 
-Download cedict_1_0_ts_utf-8_mdbg.txt from:
+Download cedict_1_0_ts_utf-8_mdbg.txt.gz from:
 
 http://www.mdbg.net/chindict/chindict.php?page=cc-cedict
 
 Put it in the same folder as these files.
+
+Uncompress the file (gunzip *.txt.gz)
 
 If you aren't running a Posix shell maybe you need to change
 the encodings...
